@@ -23,7 +23,7 @@ def count_lines(text_file):
 
     # 1. Import nltk and use word_tokenize on every line
 
-    tokenized_lines = []
+    tokenized_lines = [word_tokenize(line) for line in book_lines]
 
     print("Tokenized lines:")
     print(tokenized_lines[:5])
@@ -33,7 +33,12 @@ def count_lines(text_file):
     # 2. Create a dictionary that maps each lowercase type to the original cases found
 
     # can also do this with sets, but students are likely more familiar with list
-    case_dict = defaultdict(list)
+    case_dict_list = defaultdict(list)
+    for tokenized_line in tokenized_lines:
+        for token in tokenized_line:
+            case_dict_list[token.lower()].append(token)
+
+    case_dict = {k:list(set(v)) for k,v in case_dict_list.items()}
 
     example_words = ['whale', 'is', "double"]
     for word in example_words:
@@ -46,9 +51,13 @@ def count_lines(text_file):
     # 3. Make a dictionary of case-folded word frequency (count tokens of each lowercase type in the file)
 
     # sum can flatten the list of token lists, or this can be done with an iterator
-    lower_token_count = {}
+    all_tokens = []
+    for line in tokenized_lines:
+        all_tokens.extend(line)
+    all_tokens_lower = [t.lower() for t in all_tokens]
+    lower_token_count = Counter(all_tokens_lower)
     for word in example_words:
-        print(f"tokens of type {word}: {lower_token_count.get(word)}")
+        print(f"tokens of type {word}: {lower_token_count[word]}")
 
     # However, sometimes we can't do anything with words that occur too few times
     # 4. Count how many words occur less than 10 times and print a few examples
@@ -56,7 +65,7 @@ def count_lines(text_file):
     total_vocab_size = len(lower_token_count)
     min_count = 5
 
-    infrequent_words = []
+    infrequent_words = [w for w,count in lower_token_count.items() if count<min_count]
     print(f"{len(infrequent_words)} types of {total_vocab_size} total are infrequent")
     print(f"some infrequent words: {infrequent_words[:10]}")
 
