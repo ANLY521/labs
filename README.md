@@ -17,3 +17,13 @@ Download the utf-8 file from [Project Gutenberg](http://www.gutenberg.org/files/
 
 Usage:
 `python week1.py --path moby_dick.txt`
+
+## `sts_tfidf.py`
+
+This lab computes the similarity of pairs of sentences using a normalized term-document matrix and cosine similarity.
+This similarity metric is evaluated as a model of semantic similariy against a gold standard using pearson correlation.
+
+Data is from the [STS benchmark](http://ixa2.si.ehu.es/stswiki/index.php/STSbenchmark).
+
+Usage:
+`python sts_tfidf.py --sts_data stsbenchmark/sts-dev.csv`
