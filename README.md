@@ -27,3 +27,13 @@ Data is from the [STS benchmark](http://ixa2.si.ehu.es/stswiki/index.php/STSbenc
 
 Usage:
 `python sts_tfidf.py --sts_data stsbenchmark/sts-dev.csv`
+
+
+## `error_analysis.py`
+
+This lab finds the most confident wrong predictions in system output for paraphrase identification. 
+The data is passed as a pickle containing 1) the gold standard labels 2) the system prediction and 3) the texts.
+The top 5 false positives and negatives are printed.
+
+Usage:
+`python error_analysis.py --prediction_pkl lr_predictions.pkl`
