@@ -51,7 +51,7 @@ Example usage:
 
 `python wnuteval.py my_predictions.tsv`
 
-## wnut_predict.py
+## ner_eval.py
 
 Loads WNUT data and uses `nltk`'s `ne_chunk` to predict labels for each sentence.
 HINT: requires part-of-speech tagging and conversion between tree and conll formats.
@@ -60,7 +60,7 @@ Converts entity classes using the scheme described below in Entity Mapping.
 
 Writes a flat (text) file of NER predictions that can be scored by `wnuteval.py`.
 
-`python wnuteval.py --wnut_file emerging_entities_17/emerging.dev.conll`
+`python ner_eval.py --wnut_file emerging_entities_17/emerging.dev.conll`
 
 ### Entity mapping
 

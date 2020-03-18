@@ -36,13 +36,9 @@ def get_iob_ner(tokens):
     :param tokens: list of string
     :return: ner tags, list of strings
     """
-    # named entity chunking happens off POS tags
-    sent_with_pos = pos_tag(tokens)
-    # run the default named entity recognizer
-    nes = ne_chunk(sent_with_pos)
-    # convert to conll format
-    as_iob = tree2conlltags(nes)
-    return [ner for token,pos,ner in as_iob]
+    # TODO: use ne_chunk to predict ner tags for each token
+    ner_tags = []
+    return ner_tags
 
 def main(wnut_data, output_file):
 
@@ -54,22 +50,8 @@ def main(wnut_data, output_file):
             gold_tags = [line.split()[1] for line in sent]
 
             as_conll = get_iob_ner(sent_words)
+            # TODO: write the token, gold standard tag, and predicted tag as tab-sep values
 
-            for i, tag_prediction in enumerate(as_conll):
-                original_word = sent_words[i]
-                if "-" in tag_prediction:
-                    iob, entity = tag_prediction.split("-")
-                    if entity not in ["PERSON", "ORGANIZATION",
-                                      "GPE", "FACILITY", "LOCATION"]:
-                        tag_prediction = "O"
-                    else:
-                        if entity == "ORGANIZATION":
-                            entity = "corporation"
-                        if entity in ["FACILITY", "GPE"]:
-                            entity = "location"
-                        tag_prediction = f"{iob}-{entity.lower()}"
-                line_as_str = f"{original_word}\t{gold_tags[i]}\t{tag_prediction}\n"
-                pred_file.write(line_as_str)
             # add an empty line after each sentence
             pred_file.write("\n")
 
