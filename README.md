@@ -37,3 +37,41 @@ The top 5 false positives and negatives are printed.
 
 Usage:
 `python error_analysis.py --prediction_pkl lr_predictions.pkl`
+
+
+## wnuteval.py
+
+Taken from the WNUT17 website. Slight modifications fix import error in Python 3 and stop crashing on 
+illegal tags in test data. (This fix does NOT ensure test tags are valid.)
+
+Use with a tab-separated submission in the form:
+`<original word>  <gold standard tag>   <predicted tag>`
+
+Example usage:
+
+`python wnuteval.py my_predictions.tsv`
+
+## ner_eval.py
+
+Loads WNUT data and uses `nltk`'s `ne_chunk` to predict labels for each sentence.
+HINT: requires part-of-speech tagging and conversion between tree and conll formats.
+
+Converts entity classes using the scheme described below in Entity Mapping.
+
+Writes a flat (text) file of NER predictions that can be scored by `wnuteval.py`.
+
+`python ner_eval.py --wnut_file emerging_entities_17/emerging.dev.conll`
+
+### Entity mapping
+
+ | Nltk entity type | WNUT entity  |
+ | ------------- | ------------- |
+ |ORGANIZATION | -> corporation |
+ |PERSON | -> person |
+ |LOCATION | -> location |
+ |DATE | None |
+ |TIME | None |
+ |MONEY | None |
+ |PERCENT| None |
+ |FACILITY| -> location |
+ |GPE | -> location |
