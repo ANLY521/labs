@@ -32,12 +32,17 @@ Usage:
 ## `error_analysis.py`
 
 This lab finds the most confident wrong predictions in system output for paraphrase identification. 
-The data is passed as a pickle containing 1) the gold standard labels 2) the system prediction and 3) the texts.
+Data with labels and predictions is read from a json lines file.
 The top 5 false positives and negatives are printed.
 
 Usage:
-`python error_analysis.py --prediction_pkl lr_predictions.pkl`
+`python error_analysis.py --prediction_json benchmark_paraphrase_dev.jsonl`
 
+
+## `benchmark_paraphrase_dev.jsonl`
+
+A file of json lines. It contains a selection of the STS Benchmark corpus with labels
+converted to paraphrase, predictions of a paraphrase logistic regression, and several similarity scores.
 
 ## wnuteval.py
 
