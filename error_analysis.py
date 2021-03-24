@@ -13,13 +13,14 @@ def main(predictions):
 
     # get the false negatives
     # false negatives are wrongly predicted to be negative (label is positive)
-    # you can get check for these conditions using loops, but numpy.where is a nice way
+    # you can get check for these conditions using loops
     num_false_negatives = 0
     print(f"found {num_false_negatives} false negatives")
 
     # sort the false negatives
     # confident false negatives means the system prediction is very low
     # print texts and system prediction
+    # HINT: check out the kwarg "key" in .sort
     print("most confident false negatives:")
 
     # repeat with false positives
@@ -29,11 +30,10 @@ def main(predictions):
     print("most confident false positives:")
 
 
-
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("--prediction_pkl", type=str, default="lr_predictions.pkl",
-                        help="pickle containing texts, paraphrase labels and model predictions")
+    parser.add_argument("--prediction_json", type=str, default="benchmark_paraphrase_dev.jsonl",
+                        help="json lines file containing texts, paraphrase labels and model predictions")
     args = parser.parse_args()
 
-    main(args.prediction_pkl)
+    main(args.prediction_json)
