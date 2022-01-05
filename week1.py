@@ -3,6 +3,19 @@ import argparse
 from collections import Counter, defaultdict
 from nltk import word_tokenize
 
+def words_used_n_times(word_count_dict, n):
+    """
+    Finds keys in a Counter of vocabulary items where the word is used n times
+    :param word_count_dict: dictionary where keys are str and values are counts
+    :param n: int
+    :return: list of strings
+    """
+    n_times = []
+    for word,count in word_count_dict.items():
+        if count == n:
+            n_times.append(word)
+    return n_times
+
 def count_lines(text_file):
 
     book_lines = []
@@ -11,6 +24,7 @@ def count_lines(text_file):
             book_lines.append(line)
 
     print(f"{len(book_lines)} lines")
+    print()
 
     # leading and trailing whitespace isn't important for text
     book_lines = [line.strip() for line in book_lines]
@@ -27,6 +41,8 @@ def count_lines(text_file):
 
     print("Tokenized lines:")
     print(tokenized_lines[:5])
+
+    print()
 
     # Normalization is important when surface representations don't match, but the meaning is the same.
     # "Case folding" is the most common type
@@ -46,6 +62,8 @@ def count_lines(text_file):
             print(f"Word {word} not found")
         print(f"cases found for type {word}: {case_dict[word]}")
 
+    print()
+
     # We often measure word frequency - i.e. the count of how often each type occurs
     # hint: try a Counter object
     # 3. Make a dictionary of case-folded word frequency (count tokens of each lowercase type in the file)
@@ -59,6 +77,8 @@ def count_lines(text_file):
     for word in example_words:
         print(f"tokens of type {word}: {lower_token_count[word]}")
 
+    print()
+
     # However, sometimes we can't do anything with words that occur too few times
     # 4. Count how many words occur less than 10 times and print a few examples
 
@@ -66,11 +86,23 @@ def count_lines(text_file):
     min_count = 5
 
     infrequent_words = [w for w,count in lower_token_count.items() if count<min_count]
-    print(f"{len(infrequent_words)} types of {total_vocab_size} total are infrequent")
+    num_infrequent = len(infrequent_words)
+    print(f"{num_infrequent} types of {total_vocab_size} total are infrequent, {num_infrequent / total_vocab_size:0.03f}")
     print(f"some infrequent words: {infrequent_words[:10]}")
 
+    print()
 
-    # 5. Run your code on another .txt file
+
+    # 5. Fill in the stub function at the top
+
+    word_counts = [1, 10, 100, max(lower_token_count.values())]
+
+    for n in word_counts:
+        these_words = words_used_n_times(lower_token_count, n)
+        print(f"{len(these_words)} used {n} times")
+        print(these_words[:10])
+
+    # 6. Run your code on another .txt file
     # change run configurations, set different --path. Do not change the python code
 
 
